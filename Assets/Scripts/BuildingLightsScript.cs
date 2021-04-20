@@ -2,25 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarLightsScript : MonoBehaviour
+public class BuildingLightsScript : MonoBehaviour
 {
     private TimeController dayContoller;
-
-    private GameObject[] carLights;
-
+    
     private bool isLightsOn;
+    
+    private GameObject[] lights;
     private Material[] materials;
-    private Material lights_matererial;
+    [SerializeField] public Material lightWindowMaterial;
+    [SerializeField] public Material darkWindowMaterial;
     
     // Start is called before the first frame update
     void Start()
     {
         GameObject daySystem = GameObject.Find("DayNight");
         dayContoller = daySystem.GetComponent<TimeController>();
-        carLights = GameObject.FindGameObjectsWithTag("CarLights");
         isLightsOn = false;
+        lights = GameObject.FindGameObjectsWithTag("Lights");
         materials = GetComponent<Renderer>().materials;
-        lights_matererial = materials[1];
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class CarLightsScript : MonoBehaviour
 
     void CheckDay()
     {
-        if (dayContoller.currentTimeOfDay < 0.27f || dayContoller.currentTimeOfDay > 0.76f)
+        if (dayContoller.currentTimeOfDay < 0.26f || dayContoller.currentTimeOfDay > 0.74f)
         {
             isLightsOn = true;
         }
@@ -44,18 +44,17 @@ public class CarLightsScript : MonoBehaviour
     
     void UpdateLights()
     {
-        foreach (GameObject i in carLights)
+        foreach (GameObject i in lights)
         {
             i.SetActive(isLightsOn);
         }
-
         if (isLightsOn)
         {
-            materials[1] = lights_matererial;
+            materials[2] = lightWindowMaterial;
         }
         else
         {
-            materials[1] = materials[0];
+            materials[2] = darkWindowMaterial;
         }
         GetComponent<Renderer>().materials = materials;
     }
