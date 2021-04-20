@@ -11,16 +11,23 @@ public class TimeController : MonoBehaviour
 
     private float timeMultiplier = 1f;
     private float sunInitialIntensity;
-    
+
+    private GameObject[] allLights;
+    private bool isLightsOn = false;
+
     void Start()
     {
         sunInitialIntensity = sun.intensity;
+
+        allLights = GameObject.FindGameObjectsWithTag("LampLight");
+
     }
 
 
     void Update()
     {
         UpdateSun();
+        UpdateLamps();
 
         currentTimeOfDay += (Time.deltaTime / secondsInDay) * timeMultiplier;
         if (currentTimeOfDay >= 1)
@@ -33,10 +40,12 @@ public class TimeController : MonoBehaviour
     {
         sun.transform.localRotation = Quaternion.Euler((currentTimeOfDay * 360f) - 90, 170, 0);
         float intensityMultiplier = 1;
+        isLightsOn = false;
 
         if (currentTimeOfDay <= 0.23f || currentTimeOfDay >= 0.75f)
         {
             intensityMultiplier = 0;
+            isLightsOn = true;
         }
         else if (currentTimeOfDay <= 0.25f)
         {
@@ -48,5 +57,14 @@ public class TimeController : MonoBehaviour
         }
 
         sun.intensity = sunInitialIntensity * intensityMultiplier;
+    }
+
+    void UpdateLamps()
+    {
+        foreach (GameObject i in allLights)
+        {
+            i.SetActive(isLightsOn);
+        }
+
     }
 }
