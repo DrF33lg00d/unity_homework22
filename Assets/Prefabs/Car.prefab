@@ -65,7 +65,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   rotationSpeed: 100
-  controller: {fileID: 0}
 --- !u!1 &3789102583284407253
 GameObject:
   m_ObjectHideFlags: 0
