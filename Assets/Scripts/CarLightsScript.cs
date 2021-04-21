@@ -32,14 +32,7 @@ public class CarLightsScript : MonoBehaviour
 
     void CheckDay()
     {
-        if (dayContoller.currentTimeOfDay < 0.27f || dayContoller.currentTimeOfDay > 0.76f)
-        {
-            isLightsOn = true;
-        }
-        else
-        {
-            isLightsOn = false;
-        }
+        isLightsOn = dayContoller.currentTimeOfDay < 0.3f || dayContoller.currentTimeOfDay > 0.7f;
     }
     
     void UpdateLights()
