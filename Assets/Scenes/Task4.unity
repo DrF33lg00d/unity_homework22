@@ -177,7 +177,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -235,8 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf50a5cec2e9735468f5249d6f08be82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Assets/MapLeveling/vdk1.hdr
+  filePath: Assets/MapLeveling/vdk2.hdr
   terrain: {fileID: 0}
+  newMaterialRef: {fileID: 2100000, guid: 8b2e98a882b668648a0d8da1ab8798f8, type: 2}
 --- !u!4 &1085469843
 Transform:
   m_ObjectHideFlags: 0

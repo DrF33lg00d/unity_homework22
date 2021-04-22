@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 
@@ -11,12 +12,16 @@ public class TerrainSpawn : MonoBehaviour
     private string _filePathLevels;
     
     public Terrain terrain;
+    public Material newMaterialRef;
     
     private List<float> terrainLevels;
 
     private Dictionary<string, float> Metadata;
 
     private bool haveAllData = false;
+
+    private float x_range;
+    private float z_range;
     
     
     void Start()
@@ -31,7 +36,9 @@ public class TerrainSpawn : MonoBehaviour
 
         if (haveAllData)
         {
-            print("YES!");
+            x_range = Math.Abs(Metadata["left_map_x"] - Metadata["right_map_x"]);
+            z_range = Math.Abs(Metadata["upper_map_y"] - Metadata["lower_map_y"]);
+            GenerateTerrain();
         }
         
     }
@@ -120,5 +127,53 @@ public class TerrainSpawn : MonoBehaviour
         {
             terrainLevels.Add(float.Parse(value.Replace('.', ',')));
         }
+    }
+
+    private void GenerateTerrain()
+    {
+        GameObject TerrainObj = this.gameObject;
+        TerrainData _TerrainData = new TerrainData();
+        
+        LoadTerrainData(_TerrainData);
+        
+        TerrainCollider _TerrainCollider = TerrainObj.AddComponent<TerrainCollider>();
+        terrain = TerrainObj.AddComponent<Terrain>();
+        // Renderer rend = TerrainObj.AddComponent<Renderer>();
+        // rend.material = newMaterialRef;
+        
+        
+        _TerrainCollider.terrainData = _TerrainData;
+        terrain.terrainData = _TerrainData;
+        terrain.materialTemplate = newMaterialRef;
+
+
+    }
+
+
+    private void LoadTerrainData(TerrainData tData)
+    {
+        float maxHeight = Metadata["elev_m_minimum"];
+        float minHeight = Metadata["elev_m_maximum"];
+        int _heightmapWidth = (int) Metadata["number_of_columns"];
+        int _heightmapHeight = (int) Metadata["number_of_rows"];
+
+        tData.size = new Vector3(30, 10, 30);
+        tData.heightmapResolution = _heightmapWidth;
+        tData.baseMapResolution = _heightmapWidth;
+        tData.SetDetailResolution(_heightmapWidth, 16);
+        
+        
+        
+        float[,] normilazeData = new float[_heightmapHeight, _heightmapWidth];
+        int count = 0;
+        for (int y = 0; y < _heightmapHeight; y++)
+        {
+            for (int x = 0; x < _heightmapWidth; x++)
+            {
+                normilazeData[y, x] = 1 - (terrainLevels[count] - minHeight)/(maxHeight - minHeight);
+                count++;
+            }
+        }
+        tData.SetHeights(0, 0, normilazeData);
     }
 }

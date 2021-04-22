@@ -1,0 +1,13 @@
+file_title             = vdk2
+data_format            = ascii
+map_projection         = Lat/Lon
+left_map_x             = 131.800003
+lower_map_y            = 42.999001
+right_map_x            = 132.000000
+upper_map_y            = 43.199001
+number_of_rows         = 241
+number_of_columns      = 241
+elev_m_unit            = meters
+elev_m_minimum         = -97
+elev_m_maximum         = 411
+elev_m_missing_flag    = -9999
