@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf50a5cec2e9735468f5249d6f08be82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Assets/MapLeveling/japan.hdr
+  filePath: Assets/MapLeveling/vdk1.hdr
   terrain: {fileID: 0}
 --- !u!4 &1085469843
 Transform:
