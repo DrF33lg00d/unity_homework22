@@ -1,0 +1,13 @@
+file_title             = japan1
+data_format            = ascii
+map_projection         = Lat/Lon
+left_map_x             = 136.621994
+lower_map_y            = 36.348000
+right_map_x            = 137.682007
+upper_map_y            = 37.229000
+number_of_rows         = 1058
+number_of_columns      = 1273
+elev_m_unit            = meters
+elev_m_minimum         = -68
+elev_m_maximum         = 2984
+elev_m_missing_flag    = -9999
